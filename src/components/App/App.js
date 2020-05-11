@@ -8,6 +8,9 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import CreateStatus from '../status/CreateStatus'
+import IndexStatus from '../status/IndexStatus'
+import ShowStatus from '../status/ShowStatus'
 
 class App extends Component {
   constructor () {
@@ -24,7 +27,9 @@ class App extends Component {
   clearUser = () => this.setState({ user: null })
 
   msgAlert = ({ heading, message, variant }) => {
-    this.setState({ msgAlerts: [...this.state.msgAlerts, { heading, message, variant }] })
+    this.setState({
+      msgAlerts: [...this.state.msgAlerts, { heading, message, variant }]
+    })
   }
 
   render () {
@@ -42,18 +47,58 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route path='/sign-up' render={() => (
-            <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <Route path='/sign-in' render={() => (
-            <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword msgAlert={this.msgAlert} user={user} />
-          )} />
+          <Route
+            path="/sign-up"
+            render={() => (
+              <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+            )}
+          />
+          <Route
+            path="/sign-in"
+            render={() => (
+              <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+            )}
+          />
+          {/******************************************/}
+
+          <AuthenticatedRoute
+            user={user}
+            path="/create-status"
+            render={() => <CreateStatus msgAlert={this.msgAlert} user={user} />}
+          />
+          {/******************************************/}
+
+          <AuthenticatedRoute
+            user={user}
+            exact
+            path="/status"
+            render={() => <IndexStatus msgAlert={this.msgAlert} user={user} />}
+          />
+          {/******************************************/}
+          <AuthenticatedRoute
+            user={user}
+            path="/status/:id"
+            component={ShowStatus}
+          />
+          {/** ************** **************************/}
+          <AuthenticatedRoute
+            user={user}
+            path="/sign-out"
+            render={() => (
+              <SignOut
+                msgAlert={this.msgAlert}
+                clearUser={this.clearUser}
+                user={user}
+              />
+            )}
+          />
+          <AuthenticatedRoute
+            user={user}
+            path="/change-password"
+            render={() => (
+              <ChangePassword msgAlert={this.msgAlert} user={user} />
+            )}
+          />
         </main>
       </Fragment>
     )
