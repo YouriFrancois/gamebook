@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-// import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { createStatus } from '../../api/status'
-import messages from '../AutoDismissAlert/messages'
+// import messages from '../AutoDismissAlert/messages'
 
 const CreateStatus = props => {
-  const { msgAlert, history, user } = props
+  const { user } = props
+  const [create, setcreate] = useState(false)
 
   const [status, setstatus] = useState({
-    title: '',
-    comment: [
-      { name: user.email, message: '1 item' },
-      { name: user.email, message: '2 item' }
-    ],
-    review: [1, 2]
+    title: ''
   })
   // *************************************
   const handleChange = event => {
@@ -28,36 +24,30 @@ const CreateStatus = props => {
     event.preventDefault()
 
     createStatus(status, user)
-      .then(() =>
-        msgAlert({
-          heading: 'status Success',
-          message: messages.newStatusSuccess,
-          variant: 'success'
-        })
-      )
-      .then(() => history.push('/'))
-      .catch(error => {
-        setstatus('')
-        msgAlert({
-          heading: 'status Failed with error: ' + error.message,
-          message: messages.newStatusFailure,
-          variant: 'danger'
-        })
+      .then(res => {
+        setcreate(res.data.status)
+        console.log('this is ', res.data.status)
       })
+      .catch(console.error)
   }
   // *************************************
+  let reviewjsx = ''
+  if (create) {
+    return (reviewjsx = <Redirect to={'/status/' + create._id} />)
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <label>create status</label>
         <br />
         <input
-          placeholder="A Wonderful Film"
+          placeholder="create a status"
           value={status.title}
           name="title"
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Submit{reviewjsx}</button>
       </form>
     </div>
   )

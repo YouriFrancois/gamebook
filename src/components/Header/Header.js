@@ -22,7 +22,7 @@ const alwaysOptions = <Fragment></Fragment>
 
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="#">react-auth-template</Navbar.Brand>
+    <Navbar.Brand href="#">GameBook</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">

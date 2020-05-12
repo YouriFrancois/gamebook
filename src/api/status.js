@@ -31,3 +31,39 @@ export const showStatus = (id, user) => {
     }
   })
 }
+
+export const updateComment = (comment, user, id) => {
+  return axios({
+    url: apiUrl + '/status/' + id,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token token=${user.token}`
+    },
+    data: {
+      status: { comment }
+    }
+  })
+}
+
+export const updatereview = (review, user, id) => {
+  return axios({
+    url: apiUrl + '/status/' + id,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token token=${user.token}`
+    },
+    data: {
+      status: { review }
+    }
+  })
+}
+
+export const deleteReview = (user, id) => {
+  return axios({
+    url: apiUrl + '/status/' + id,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token token=${user.token}`
+    }
+  })
+}

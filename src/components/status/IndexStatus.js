@@ -13,12 +13,26 @@ const IndexStatus = props => {
       })
       .catch(console.error)
   }, [])
-
+  // *****************
+  const styles = {
+    color: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '10vh',
+    border: '2px solid red',
+    margin: '10px'
+  }
   // ************
   const status1 = status.map(status => (
-    <li key={status._id}>
-      <Link to={`/status/${status._id}`}> {status.title}</Link>
-    </li>
+    <div style={styles} key={status._id}>
+      <Link to={`/status/${status._id}`}>
+        <h3>
+          {' '}
+          {console.log(status)}
+          {status.title}{' '}
+        </h3>
+      </Link>
+    </div>
   ))
 
   return (

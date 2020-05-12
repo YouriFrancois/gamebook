@@ -78,8 +78,12 @@ class App extends Component {
           <AuthenticatedRoute
             user={user}
             path="/status/:id"
-            component={ShowStatus}
+            render={({ match }) => (
+              <ShowStatus msgAlert={this.msgAlert} match={match} user={user} />
+            )}
           />
+          {/** ************** **************************/}
+
           {/** ************** **************************/}
           <AuthenticatedRoute
             user={user}
