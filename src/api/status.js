@@ -57,14 +57,14 @@ export const updatereview = (review, user, id) => {
     }
   })
 }
-export const update = (data, user, id) => {
+export const update = (title, user, id) => {
   return axios({
     url: apiUrl + '/status/' + id,
     method: 'PATCH',
     headers: {
       Authorization: `Token token=${user.token}`
     },
-    data: data
+    data: { status: { title } }
   })
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import {
   showStatus,
   updatereview,
@@ -7,10 +7,10 @@ import {
   deleteReview
 } from '../../api/status'
 
-import { showStyles1, showStyles2 } from './style'
+import { showStyles1, showStyles2, buttonStyle } from './style'
 
 const ShowStatus = props => {
-  let arr1 = ''
+  let arr1 = []
   const [status, setstatus] = useState({})
   const [deleted, setdeleted] = useState(false)
   const [comment, setcomment] = useState({
@@ -32,7 +32,6 @@ const ShowStatus = props => {
   //= ==================================================================
   let comments = []
   let reviewjsx = 'no review '
-  console.log('this is', status.review)
   if (status.comment) {
     comments = status.comment.map(comments => (
       <div key={comments._id}>
@@ -41,12 +40,11 @@ const ShowStatus = props => {
     ))
   }
   if (status.review) {
-    console.log(status.review.length < 1)
-    console.log('this ', status.review.length)
     status.review.forEach(review => {
-      arr1 = review.name
+      arr1.push(review.name)
     })
-    arr1.includes(props.user.email)
+
+    arr1 = arr1.includes(props.user.email)
 
     reviewjsx = status.review.reduce(function (a, b) {
       return a + b.point
@@ -95,7 +93,7 @@ const ShowStatus = props => {
   //= ===================================================================
   let reviewForm = (
     <form onSubmit={handleReview}>
-      <label> number have to be 0 to 10 </label>
+      <label> Rating must be 0 to 10 </label>
       <input
         placeholder="review"
         type="number"
@@ -109,7 +107,7 @@ const ShowStatus = props => {
   // ===========================
 
   //= ==================================
-  if (review.point === 'done' || arr1) {
+  if (arr1) {
     reviewForm = ''
   }
 
@@ -124,6 +122,7 @@ const ShowStatus = props => {
 
   //= =============================================================
   let button1 = ''
+  let button2 = ''
   if (props.user._id === status.owner) {
     button1 = (
       <button
@@ -134,7 +133,15 @@ const ShowStatus = props => {
         delete
       </button>
     )
+
+    button2 = (
+      <Link to={`/status/${status._id}/edit`}>
+        {' '}
+        <button style={buttonStyle}> edit </button>
+      </Link>
+    )
   }
+
   if (deleted) {
     return (reviewjsx = <Redirect to="/status" />)
   }
@@ -144,7 +151,7 @@ const ShowStatus = props => {
         <h2>{status.title}</h2>
         review: {reviewjsx} {'   '}
         <br />
-        {button1}
+        {button1} {button2}
       </div>
 
       <br />
@@ -158,7 +165,9 @@ const ShowStatus = props => {
           name="message"
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button style={buttonStyle} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   )

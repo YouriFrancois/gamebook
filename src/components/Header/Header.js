@@ -4,8 +4,8 @@ import Navbar from 'react-bootstrap/Navbar'
 
 const authenticatedOptions = (
   <Fragment>
-    <Nav.Link href="#status">status</Nav.Link>
-    <Nav.Link href="#create-status">create status</Nav.Link>
+    <Nav.Link href="#status">Saved Games</Nav.Link>
+    <Nav.Link href="#create-status">Create Review</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
@@ -21,8 +21,8 @@ const unauthenticatedOptions = (
 const alwaysOptions = <Fragment></Fragment>
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="#">GameBook</Navbar.Brand>
+  <Navbar bg="light" variant="light" expand="md">
+    <Navbar.Brand href="#status">GameBook</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">

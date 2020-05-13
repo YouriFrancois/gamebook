@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-import { createStatus } from '../../api/status'
+import { update, showStatus } from '../../api/status'
 import { textareaStyles, buttonStyle } from './style'
 
-const CreateStatus = props => {
+const EditStatus = props => {
   const { user } = props
   const [create, setcreate] = useState(false)
 
   const [status, setstatus] = useState({
     title: ''
   })
+  //* ***********************************
+  useEffect(() => {
+    showStatus(props.match.params.id)
+      .then(res => {
+        setstatus(res.data.status)
+      })
+      .catch(console.error)
+  }, [])
   // *************************************
   const handleChange = event => {
     event.persist()
@@ -23,16 +31,16 @@ const CreateStatus = props => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    createStatus(status, user)
+    update(status.title, user, props.match.params.id)
       .then(res => {
-        setcreate(res.data.status)
+        setcreate(true)
       })
       .catch(console.error)
   }
   // *************************************
   let reviewjsx = ''
   if (create) {
-    return (reviewjsx = <Redirect to={'/status/' + create._id} />)
+    return (reviewjsx = <Redirect to={'/status/' + props.match.params.id} />)
   }
 
   return (
@@ -59,4 +67,4 @@ const CreateStatus = props => {
   )
 }
 
-export default CreateStatus
+export default EditStatus

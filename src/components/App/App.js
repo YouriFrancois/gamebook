@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import CreateStatus from '../status/CreateStatus'
 import IndexStatus from '../status/IndexStatus'
 import ShowStatus from '../status/ShowStatus'
+import EditStatus from '../status/editStatus'
 
 class App extends Component {
   constructor () {
@@ -77,13 +78,20 @@ class App extends Component {
           {/******************************************/}
           <AuthenticatedRoute
             user={user}
+            exact
             path="/status/:id"
             render={({ match }) => (
               <ShowStatus msgAlert={this.msgAlert} match={match} user={user} />
             )}
           />
           {/** ************** **************************/}
-
+          <AuthenticatedRoute
+            user={user}
+            path="/status/:id/edit"
+            render={({ match }) => (
+              <EditStatus msgAlert={this.msgAlert} match={match} user={user} />
+            )}
+          />
           {/** ************** **************************/}
           <AuthenticatedRoute
             user={user}
