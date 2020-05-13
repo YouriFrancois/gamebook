@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { indexStatus } from '../../api/status'
+import { indexStyles } from './style'
 
 const IndexStatus = props => {
   const [status, setstatus] = useState([])
@@ -14,30 +15,27 @@ const IndexStatus = props => {
       .catch(console.error)
   }, [])
   // *****************
-  const styles = {
-    color: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '10vh',
-    border: '2px solid red',
-    margin: '10px'
-  }
+
   // ************
-  const status1 = status.map(status => (
-    <div style={styles} key={status._id}>
-      <Link to={`/status/${status._id}`}>
-        <h3>
-          {' '}
-          {console.log(status)}
-          {status.title}{' '}
-        </h3>
-      </Link>
+  let status1 = (
+    <div>
+      <h2>create a review</h2>
     </div>
-  ))
+  )
+
+  if (status) {
+    status1 = status.map(status => (
+      <div style={indexStyles} key={status._id}>
+        <Link to={`/status/${status._id}`}>
+          <h3> {status.title} </h3>
+        </Link>
+      </div>
+    ))
+  }
 
   return (
     <div>
-      <h4>status</h4>
+      <h4>all Review</h4>
       <ul>{status1}</ul>
     </div>
   )

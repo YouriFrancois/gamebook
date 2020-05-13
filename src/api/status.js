@@ -34,7 +34,7 @@ export const showStatus = (id, user) => {
 
 export const updateComment = (comment, user, id) => {
   return axios({
-    url: apiUrl + '/status/' + id,
+    url: apiUrl + '/status-comment/' + id,
     method: 'PATCH',
     headers: {
       Authorization: `Token token=${user.token}`
@@ -47,7 +47,7 @@ export const updateComment = (comment, user, id) => {
 
 export const updatereview = (review, user, id) => {
   return axios({
-    url: apiUrl + '/status/' + id,
+    url: apiUrl + '/status-comment/' + id,
     method: 'PATCH',
     headers: {
       Authorization: `Token token=${user.token}`
@@ -55,6 +55,16 @@ export const updatereview = (review, user, id) => {
     data: {
       status: { review }
     }
+  })
+}
+export const update = (data, user, id) => {
+  return axios({
+    url: apiUrl + '/status/' + id,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token token=${user.token}`
+    },
+    data: data
   })
 }
 

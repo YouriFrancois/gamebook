@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { createStatus } from '../../api/status'
-// import messages from '../AutoDismissAlert/messages'
+import { textareaStyles, button1 } from './style'
 
 const CreateStatus = props => {
   const { user } = props
@@ -26,7 +26,6 @@ const CreateStatus = props => {
     createStatus(status, user)
       .then(res => {
         setcreate(res.data.status)
-        console.log('this is ', res.data.status)
       })
       .catch(console.error)
   }
@@ -39,15 +38,22 @@ const CreateStatus = props => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>create status</label>
+        <label>
+          <h2>write a game review</h2>
+        </label>
         <br />
-        <input
+        <textarea
+          style={textareaStyles}
           placeholder="create a status"
           value={status.title}
           name="title"
           onChange={handleChange}
         />
-        <button type="submit">Submit{reviewjsx}</button>
+        <br />
+
+        <button style={button1} type="submit">
+          Submit{reviewjsx}
+        </button>
       </form>
     </div>
   )

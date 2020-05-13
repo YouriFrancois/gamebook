@@ -7,6 +7,8 @@ import {
   deleteReview
 } from '../../api/status'
 
+import { showStyles1, showStyles2 } from './style'
+
 const ShowStatus = props => {
   let arr1 = ''
   const [status, setstatus] = useState({})
@@ -23,14 +25,14 @@ const ShowStatus = props => {
   useEffect(() => {
     showStatus(props.match.params.id)
       .then(res => {
-        console.log('this a')
         setstatus(res.data.status)
       })
       .catch(console.error)
   }, [comment.message, review.point])
   //= ==================================================================
   let comments = []
-  let reviewjsx = []
+  let reviewjsx = 'no review '
+  console.log('this is', status.review)
   if (status.comment) {
     comments = status.comment.map(comments => (
       <div key={comments._id}>
@@ -39,6 +41,8 @@ const ShowStatus = props => {
     ))
   }
   if (status.review) {
+    console.log(status.review.length < 1)
+    console.log('this ', status.review.length)
     status.review.forEach(review => {
       arr1 = review.name
     })
@@ -49,6 +53,9 @@ const ShowStatus = props => {
     }, 0)
 
     reviewjsx = reviewjsx / status.review.length
+    if (Number.isNaN(reviewjsx)) {
+      reviewjsx = 'no review '
+    }
   }
   //= =================================================================
   const handleChange = event => {
@@ -88,6 +95,7 @@ const ShowStatus = props => {
   //= ===================================================================
   let reviewForm = (
     <form onSubmit={handleReview}>
+      <label> number have to be 0 to 10 </label>
       <input
         placeholder="review"
         type="number"
@@ -103,11 +111,10 @@ const ShowStatus = props => {
   //= ==================================
   if (review.point === 'done' || arr1) {
     reviewForm = ''
-    console.log(arr1)
   }
 
   //= ============================================================
-  const deleteBook = (id, user) => {
+  const deletereview = (id, user) => {
     deleteReview(user, id)
       .then(res => {
         setdeleted(true)
@@ -116,23 +123,33 @@ const ShowStatus = props => {
   }
 
   //= =============================================================
-  if (deleted) {
-    return (reviewjsx = <Redirect to="/status" />)
-  }
-  return (
-    <div>
-      <h2>{status.title}</h2>
-      <h4>review: {reviewjsx}</h4>
-      <h4>comment :{comments}</h4>
+  let button1 = ''
+  if (props.user._id === status.owner) {
+    button1 = (
       <button
         onClick={() => {
-          deleteBook(props.match.params.id, props.user)
+          deletereview(props.match.params.id, props.user)
         }}
       >
         delete
       </button>
+    )
+  }
+  if (deleted) {
+    return (reviewjsx = <Redirect to="/status" />)
+  }
+  return (
+    <div style={showStyles2}>
+      <div style={showStyles1}>
+        <h2>{status.title}</h2>
+        review: {reviewjsx} {'   '}
+        <br />
+        {button1}
+      </div>
+
       <br />
       {reviewForm}
+      <h4>comment: {comments}</h4>
       <form onSubmit={handleSubmit}>
         <br />
         <input
