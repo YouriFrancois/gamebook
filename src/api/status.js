@@ -8,7 +8,7 @@ export const createStatus = (status, user) => {
     headers: {
       Authorization: `Token token=${user.token}`
     },
-    data: { status: status }
+    data: { status: { title: user.email + ' : ' + status.title } }
   })
 }
 

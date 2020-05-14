@@ -50,7 +50,7 @@ const IndexStatus = props => {
   }
 
   return (
-    <div st>
+    <div>
       <h2 className="font1">All Reviews</h2>
       <h3>{status1}</h3>
     </div>

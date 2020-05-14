@@ -35,7 +35,7 @@ const ShowStatus = props => {
   if (status.comment) {
     comments = status.comment.map(comments => (
       <div key={comments._id}>
-        {comments.name}:{comments.message}
+        {comments.name} : {comments.message}
       </div>
     ))
   }
@@ -95,6 +95,9 @@ const ShowStatus = props => {
     <form onSubmit={handleReview}>
       <label> Rating must be 0 to 10 </label>
       <input
+        min="0"
+        max="10"
+        required="required"
         placeholder="review"
         type="number"
         value={review.point}
@@ -145,6 +148,7 @@ const ShowStatus = props => {
   if (deleted) {
     return (reviewjsx = <Redirect to="/status" />)
   }
+  // console.log(status)
   return (
     <div style={showStyles2}>
       <div style={showStyles1}>
@@ -156,10 +160,11 @@ const ShowStatus = props => {
 
       <br />
       {reviewForm}
-      <h4>comment: {comments}</h4>
+      <h4>comments : {comments}</h4>
       <form onSubmit={handleSubmit}>
         <br />
         <input
+          required="required"
           placeholder="comment"
           value={comment.message}
           name="message"

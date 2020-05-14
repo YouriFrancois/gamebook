@@ -39,12 +39,13 @@ const CreateStatus = props => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          <h2>write a game review</h2>
+          <h2>Add Game To Review</h2>
         </label>
         <br />
         <textarea
+          required="required"
           style={textareaStyles}
-          placeholder="create a status"
+          placeholder="Game Title"
           value={status.title}
           name="title"
           onChange={handleChange}
