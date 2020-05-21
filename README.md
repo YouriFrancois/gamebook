@@ -14,7 +14,7 @@ For this project, I utilized JavaScript, Axios, React, Bootstrap, HTML and Git.
 
 Development
 my development cycle was split into two parts, the first one is the user will be able to create a review for a game thee second part is to be able to save it in the back end and retrieve the comment left in the review the difficult part was the comment when i was pushing to the array it was not saving it.
-<img src="pic/pic4.png ">
+<img src="pic/pic4.jpg ">
 //\***\*\*\*\*\*\*\***\*\***\*\*\*\*\*\*\***
 
 User Stories
