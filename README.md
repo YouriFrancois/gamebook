@@ -28,6 +28,10 @@ As a signed in user in a review, would be able to update his review.
 As a signed in user of a review, would be able to delete his review.
 Wireframes and ERD
 They can be found here,
-
+<br/>
+<img src="pic/pic1.png ">
+<img src="pic/pic2.png ">
+<img src="pic/pic3.png ">
+<br/>
 Planning Updates
 Our next version of the application will enable users to CRUD in their comment
